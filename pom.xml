@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Se debe compartir el Business Group de Anypoint Platform -->
-	<groupId>fb3582a6-638b-4fab-afa2-d983c9b3976e</groupId>
+	<groupId>81b4d470-a64b-48ed-a9dc-25dc7b495102</groupId>
 	<artifactId>starwars</artifactId>
 	<version>1.0.3</version>
 	<packaging>mule-application</packaging>
