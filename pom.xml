@@ -2,9 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
+	<!-- Se debe compartir el Business Group de Anypoint Platform -->
+	<groupId>fb3582a6-638b-4fab-afa2-d983c9b3976e</groupId>
 	<artifactId>starwars</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<packaging>mule-application</packaging>
 
 	<name>starwars</name>
@@ -13,8 +14,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.7.2</app.runtime>
+		<!-- Es importante identificar cada vez que realizamos un deploy atraves del pipeline se debe incrementar la versión -->
+		<app.runtime>4.6.6</app.runtime>
 		<mule.maven.plugin.version>4.2.0</mule.maven.plugin.version>
+		
+		<!-- Asignamos un nombre a desplegar en Runtime Manager -->
+		<deploy.name>starwars-api</deploy.name>
 	</properties>
 
 	<build>
@@ -29,6 +34,37 @@
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				<configuration>
+					<classifier>mule-application</classifier>
+					
+					<!-- Configuraciones para Cloudhub 2 -->
+					<cloudhub2Deployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<provider>MC</provider>
+						<environment>${environment}</environment>
+						<businessGroupId>${businessGroupId}</businessGroupId>
+						<target>${target}</target>
+						<muleVersion>${app.runtime}</muleVersion>
+						<server>anypoint-exchange-v3</server>
+						<connectedAppClientId>${connectedAppClientId}</connectedAppClientId>
+						<connectedAppClientSecret>${connectedAppClientSecret}</connectedAppClientSecret>
+						<connectedAppGrantType>client_credentials</connectedAppGrantType>
+						<applicationName>${deploy.name}-${mule.env}</applicationName>
+						<replicas>${replicas}</replicas>
+						<vCores>${vCores}</vCores>
+						<deploymentSettings>
+							<lastMileSecurity>false</lastMileSecurity>
+							<forwardSslSession>false</forwardSslSession>
+							<generateDefaultPublicUrl>true</generateDefaultPublicUrl>
+						</deploymentSettings>
+						<properties>
+							<mule.env>${mule.env}</mule.env>
+						</properties>
+						<releaseChannel>LTS</releaseChannel>						
+						<javaVersion>17</javaVersion>		
+					</cloudhub2Deployment>
+
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -87,5 +123,15 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<!-- Configuraciones para Cloudhub 2 -->
+	<distributionManagement>
+		<repository>
+			<id>anypoint-exchange-v3</id>
+			<name>Corporate Repository</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${businessGroupId}/maven</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 
 </project>
