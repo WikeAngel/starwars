@@ -2,7 +2,7 @@ http:
  port: '8080'
  
 general:
-  path: '/v1/api/sys/*'
+  path: '/v1/api/*'
   apiId: '18968478'
   
 swapi:
