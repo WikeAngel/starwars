@@ -5,7 +5,7 @@
 	<!-- Se debe compartir el Business Group de Anypoint Platform -->
 	<groupId>81b4d470-a64b-48ed-a9dc-25dc7b495102</groupId>
 	<artifactId>starwars-demo</artifactId>
-	<version>1.0.5</version> <!--  Es importante identificar que en cada versión que se despliegue en el pipeline es necsario subir la versión -->
+	<version>1.0.6</version> <!--  Es importante identificar que en cada versión que se despliegue en el pipeline es necsario subir la versión -->
 	<packaging>mule-application</packaging>
 
 	<name>starwars-demo</name>
